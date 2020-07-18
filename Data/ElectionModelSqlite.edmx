@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mainModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\ki12265\source\repos\ParteienAnalyse\Data\database\WahlOMat.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ANSWER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="PARTY" Type="integer" />
+          <Property Name="QUESTION" Type="integer" />
+          <Property Name="OPTION" Type="integer" />
+        </EntityType>
+        <EntityType Name="ELECTION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="YEAR" Type="integer" />
+          <Property Name="NAME" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="OPTION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="TEXT" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="PARTY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="NAME_SHORT" Type="varchar" MaxLength="20" />
+          <Property Name="NAME_LONG" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="QUESTION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="ELECTION" Type="integer" />
+          <Property Name="TEXT" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_ANSWER_0_0">
+          <End Role="OPTION" Type="Self.OPTION" Multiplicity="0..1" />
+          <End Role="ANSWER" Type="Self.ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OPTION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWER">
+              <PropertyRef Name="OPTION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANSWER_1_0">
+          <End Role="QUESTION" Type="Self.QUESTION" Multiplicity="0..1" />
+          <End Role="ANSWER" Type="Self.ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWER">
+              <PropertyRef Name="QUESTION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANSWER_2_0">
+          <End Role="PARTY" Type="Self.PARTY" Multiplicity="0..1" />
+          <End Role="ANSWER" Type="Self.ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PARTY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWER">
+              <PropertyRef Name="PARTY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUESTION_0_0">
+          <End Role="ELECTION" Type="Self.ELECTION" Multiplicity="0..1" />
+          <End Role="QUESTION" Type="Self.QUESTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ELECTION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUESTION">
+              <PropertyRef Name="ELECTION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mainModelStoreContainer">
+          <EntitySet Name="ANSWER" EntityType="Self.ANSWER" store:Type="Tables" />
+          <EntitySet Name="ELECTION" EntityType="Self.ELECTION" store:Type="Tables" />
+          <EntitySet Name="OPTION" EntityType="Self.OPTION" store:Type="Tables" />
+          <EntitySet Name="PARTY" EntityType="Self.PARTY" store:Type="Tables" />
+          <EntitySet Name="QUESTION" EntityType="Self.QUESTION" store:Type="Tables" />
+          <AssociationSet Name="FK_ANSWER_0_0" Association="Self.FK_ANSWER_0_0">
+            <End Role="OPTION" EntitySet="OPTION" />
+            <End Role="ANSWER" EntitySet="ANSWER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANSWER_1_0" Association="Self.FK_ANSWER_1_0">
+            <End Role="QUESTION" EntitySet="QUESTION" />
+            <End Role="ANSWER" EntitySet="ANSWER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANSWER_2_0" Association="Self.FK_ANSWER_2_0">
+            <End Role="PARTY" EntitySet="PARTY" />
+            <End Role="ANSWER" EntitySet="ANSWER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QUESTION_0_0" Association="Self.FK_QUESTION_0_0">
+            <End Role="ELECTION" EntitySet="ELECTION" />
+            <End Role="QUESTION" EntitySet="QUESTION" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mainModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ANSWER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="PARTY" Type="Int64" />
+          <Property Name="QUESTION" Type="Int64" />
+          <Property Name="OPTION" Type="Int64" />
+          <NavigationProperty Name="OPTIONnav" Relationship="Self.FK_ANSWER_0_0" FromRole="ANSWER" ToRole="OPTION" />
+          <NavigationProperty Name="QUESTIONnav" Relationship="Self.FK_ANSWER_1_0" FromRole="ANSWER" ToRole="QUESTION" />
+          <NavigationProperty Name="PARTYnav" Relationship="Self.FK_ANSWER_2_0" FromRole="ANSWER" ToRole="PARTY" />
+        </EntityType>
+        <EntityType Name="ELECTION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="YEAR" Type="Int64" />
+          <Property Name="NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="QUESTIONs" Relationship="Self.FK_QUESTION_0_0" FromRole="ELECTION" ToRole="QUESTION" />
+        </EntityType>
+        <EntityType Name="OPTION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="TEXT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ANSWERs" Relationship="Self.FK_ANSWER_0_0" FromRole="OPTION" ToRole="ANSWER" />
+        </EntityType>
+        <EntityType Name="PARTY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="NAME_SHORT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NAME_LONG" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ANSWERs" Relationship="Self.FK_ANSWER_2_0" FromRole="PARTY" ToRole="ANSWER" />
+        </EntityType>
+        <EntityType Name="QUESTION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ELECTION" Type="Int64" />
+          <Property Name="TEXT" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ANSWERs" Relationship="Self.FK_ANSWER_1_0" FromRole="QUESTION" ToRole="ANSWER" />
+          <NavigationProperty Name="ELECTION1" Relationship="Self.FK_QUESTION_0_0" FromRole="QUESTION" ToRole="ELECTION" />
+        </EntityType>
+        <Association Name="FK_ANSWER_0_0">
+          <End Role="OPTION" Type="Self.OPTION" Multiplicity="0..1" />
+          <End Role="ANSWER" Type="Self.ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OPTION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWER">
+              <PropertyRef Name="OPTION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANSWER_1_0">
+          <End Role="QUESTION" Type="Self.QUESTION" Multiplicity="0..1" />
+          <End Role="ANSWER" Type="Self.ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWER">
+              <PropertyRef Name="QUESTION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANSWER_2_0">
+          <End Role="PARTY" Type="Self.PARTY" Multiplicity="0..1" />
+          <End Role="ANSWER" Type="Self.ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PARTY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWER">
+              <PropertyRef Name="PARTY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUESTION_0_0">
+          <End Role="ELECTION" Type="Self.ELECTION" Multiplicity="0..1" />
+          <End Role="QUESTION" Type="Self.QUESTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ELECTION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUESTION">
+              <PropertyRef Name="ELECTION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ElectionSqliteContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ANSWERs" EntityType="Self.ANSWER" />
+          <EntitySet Name="ELECTIONs" EntityType="Self.ELECTION" />
+          <EntitySet Name="OPTIONs" EntityType="Self.OPTION" />
+          <EntitySet Name="PARTies" EntityType="Self.PARTY" />
+          <EntitySet Name="QUESTIONs" EntityType="Self.QUESTION" />
+          <AssociationSet Name="FK_ANSWER_0_0" Association="Self.FK_ANSWER_0_0">
+            <End Role="OPTION" EntitySet="OPTIONs" />
+            <End Role="ANSWER" EntitySet="ANSWERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANSWER_1_0" Association="Self.FK_ANSWER_1_0">
+            <End Role="QUESTION" EntitySet="QUESTIONs" />
+            <End Role="ANSWER" EntitySet="ANSWERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANSWER_2_0" Association="Self.FK_ANSWER_2_0">
+            <End Role="PARTY" EntitySet="PARTies" />
+            <End Role="ANSWER" EntitySet="ANSWERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QUESTION_0_0" Association="Self.FK_QUESTION_0_0">
+            <End Role="ELECTION" EntitySet="ELECTIONs" />
+            <End Role="QUESTION" EntitySet="QUESTIONs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mainModelStoreContainer" CdmEntityContainer="ElectionSqliteContext">
+          <EntitySetMapping Name="ANSWERs">
+            <EntityTypeMapping TypeName="mainModel.ANSWER">
+              <MappingFragment StoreEntitySet="ANSWER">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PARTY" ColumnName="PARTY" />
+                <ScalarProperty Name="QUESTION" ColumnName="QUESTION" />
+                <ScalarProperty Name="OPTION" ColumnName="OPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ELECTIONs">
+            <EntityTypeMapping TypeName="mainModel.ELECTION">
+              <MappingFragment StoreEntitySet="ELECTION">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OPTIONs">
+            <EntityTypeMapping TypeName="mainModel.OPTION">
+              <MappingFragment StoreEntitySet="OPTION">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PARTies">
+            <EntityTypeMapping TypeName="mainModel.PARTY">
+              <MappingFragment StoreEntitySet="PARTY">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME_SHORT" ColumnName="NAME_SHORT" />
+                <ScalarProperty Name="NAME_LONG" ColumnName="NAME_LONG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QUESTIONs">
+            <EntityTypeMapping TypeName="mainModel.QUESTION">
+              <MappingFragment StoreEntitySet="QUESTION">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ELECTION" ColumnName="ELECTION" />
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
